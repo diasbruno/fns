@@ -1,0 +1,19 @@
+{
+  "name": "fns",
+  "version": "0.0.1",
+  "description": "A micro functional toolbelt (with sharp objects).",
+  "main": "index.js",
+  "scripts": {
+    "test": "node t/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://githubo.com/diasbruno/fns"
+  },
+  "keywords": [
+    "fp",
+    "functional programming"
+  ],
+  "author": "Bruno Dias",
+  "license": "Unlicense"
+}
