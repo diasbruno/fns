@@ -1,7 +1,8 @@
 const assert = require('assert');
 const {
   maybeNull,
-  maybeAnyNullable
+  maybeAnyNullable,
+  typeCase
 } = require('../index.js');
 
 [
@@ -39,6 +40,45 @@ const {
     'maybeAnyNullable must use default function on undefined', () => {
       const f = maybeAnyNullable(() => -1, (x) => x + 1);
       assert.ok(f(undefined) === -1);
+    }
+  ],
+  [
+    'typeCase must call default function if not handled', () => {
+      const f = typeCase({}, () => -1);
+      assert.ok(f("a") === -1);
+    }
+  ],
+  [
+    'typeCase should work with String', () => {
+      const f = typeCase({
+	[String.name]: (x) => x + "b"
+      }, () => -1);
+      assert.ok(f("a") === "ab");
+    }
+  ],
+  [
+    'typeCase should work with Number', () => {
+      const f = typeCase({
+	[Number.name]: (x) => x + 2
+      }, () => -1);
+      assert.ok(f(1) === 3);
+    }
+  ],
+  [
+    'typeCase should work with Boolean', () => {
+      const f = typeCase({
+	[Boolean.name]: (x) => !x
+      }, () => -1);
+      assert.ok(f(false) === true);
+    }
+  ],
+  [
+    'typeCase should work with a user-defined type', () => {
+      class A { x = 1; }
+      const f = typeCase({
+	[A.name]: (a) => (a.x + 1)
+      }, () => -1);
+      assert.ok(f(new A) === 2);
     }
   ],
 ].forEach(([title, test]) => {
