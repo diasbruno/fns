@@ -1,6 +1,7 @@
 const assert = require('assert');
 const {
   Unit, unit,
+  Pair, pair,
   maybeNull,
   maybeAnyNullable,
   typeCase
@@ -23,6 +24,27 @@ const {
     'Unit type must have only one instance with lazy unit.', () => {
       const u = new Unit();
       assert.ok(u === unit());
+    }
+  ],
+  [
+    'Pair(Tuple) type.', () => {
+      const p = new Pair(null, null);
+      assert.ok(p.a === null && p.b === null);
+    }
+  ],
+  [
+    'Pair(Tuple) type must implement map(f).', () => {
+      const p = new Pair(null, 1).map((x) => x + 1);
+      assert.ok(p.a === null && p.b === 2);
+    }
+  ],
+  [
+    'Pair(Tuple) type must implement bimap(f).', () => {
+      const p = new Pair("a", 1).bimap(
+	(x) => x + "b",
+	(y) => y + 1
+      );
+      assert.ok(p.a === "ab" && p.b === 2);
     }
   ],
   [

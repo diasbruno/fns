@@ -11,6 +11,23 @@ const Unit = function Unit() {
 
 const unit = () => _unit;
 
+class Pair {
+  a = null;
+  b = null;
+
+  constructor(a, b) { this.a = a || null; this.b = b || null; }
+
+  map(f) { return new Pair(this.a, f(this.b)); }
+
+  bimap(f, g) { return new Pair(f(this.a), g(this.b)); }
+
+  toString() {
+    return "(${this.a.toString()}, ${this.b.toString()})";
+  }
+}
+
+const pair = (a, b) => new Pair(a, b);
+
 const maybeNull = (d, f) => x => x !== null ? f(x) : d();
 
 const maybeAnyNullable = (d, f) => x => x != null ? f(x) : d();
@@ -23,6 +40,7 @@ const typeCase = (dict, d) => x => {
 
 module.exports = {
   Unit, unit,
+  Pair, pair,
   maybeAnyNullable,
   maybeNull,
   typeCase
