@@ -1,5 +1,5 @@
 {
-  "name": "fns",
+  "name": "libfn",
   "version": "0.0.6",
   "description": "A micro functional toolbelt (with sharp objects).",
   "main": "index.js",
