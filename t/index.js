@@ -1,6 +1,7 @@
 const assert = require('assert');
 const {
-  maybeNull
+  maybeNull,
+  maybeAnyNullable
 } = require('../index.js');
 
 [
@@ -20,6 +21,24 @@ const {
     'maybeNull must use default function on undefined', () => {
       const f = maybeNull(() => -1, (x) => x + 1);
       assert.ok(f(undefined).toString() === 'NaN');
+    }
+  ],
+  [
+    'maybeAnyNullable with a value must execute the function.', () => {
+      const f = maybeAnyNullable(() => -1, (x) => x + 1);
+      assert.ok(f(1) === 2);
+    }
+  ],
+  [
+    'maybeAnyNullable must use default function on null', () => {
+      const f = maybeAnyNullable(() => -1, (x) => x + 1);
+      assert.ok(f(null) === -1);
+    }
+  ],
+  [
+    'maybeAnyNullable must use default function on undefined', () => {
+      const f = maybeAnyNullable(() => -1, (x) => x + 1);
+      assert.ok(f(undefined) === -1);
     }
   ],
 ].forEach(([title, test]) => {
