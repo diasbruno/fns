@@ -1,6 +1,6 @@
 {
   "name": "fns",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A micro functional toolbelt (with sharp objects).",
   "main": "index.js",
   "scripts": {

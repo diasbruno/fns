@@ -4,28 +4,26 @@ const {
   Pair, pair,
   maybeNull,
   maybeAnyNullable,
-  typeCase
+  typeCase,
+  show
 } = require('../index.js');
 
 [
   [
-    'Unit type must have only one instance using new.', () => {
-      const u = new Unit;
-      assert.ok(u === new Unit);
+    'must thrown an exception is show() is called with nullable value.', () => {
+      try {
+	show(null);
+      } catch(e) {
+	assert.ok(/nullable/.exec(e.message));
+      }
     }
   ],
   [
-    'Unit type must have only one instance.', () => {
-      const u = Unit();
-      assert.ok(u === Unit());
+    'must delegate to toString() method if the value is present.', () => {
+      assert.ok(show(1) === "1");
     }
   ],
-  [
-    'Unit type must have only one instance with lazy unit.', () => {
-      const u = new Unit();
-      assert.ok(u === unit());
-    }
-  ],
+
   [
     'Pair(Tuple) type.', () => {
       const p = new Pair(null, null);
