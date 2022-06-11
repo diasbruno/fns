@@ -1,11 +1,30 @@
 const assert = require('assert');
 const {
+  Unit, unit,
   maybeNull,
   maybeAnyNullable,
   typeCase
 } = require('../index.js');
 
 [
+  [
+    'Unit type must have only one instance using new.', () => {
+      const u = new Unit;
+      assert.ok(u === new Unit);
+    }
+  ],
+  [
+    'Unit type must have only one instance.', () => {
+      const u = Unit();
+      assert.ok(u === Unit());
+    }
+  ],
+  [
+    'Unit type must have only one instance with lazy unit.', () => {
+      const u = new Unit();
+      assert.ok(u === unit());
+    }
+  ],
   [
     'maybeNull with a value must execute the function.', () => {
       const f = maybeNull(() => -1, (x) => x + 1);
